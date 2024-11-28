@@ -47,6 +47,7 @@ import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { OrchestratorPage } from '@red-hat-developer-hub/backstage-plugin-orchestrator';
 import { getThemes } from '@redhat-developer/red-hat-developer-hub-theme';
+import { RbacPage } from '@backstage-community/plugin-rbac';
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import { apis } from './apis';
@@ -128,6 +129,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/orchestrator" element={<OrchestratorPage />} />
+    <Route path="/rbac" element={<RbacPage />} />
   </FlatRoutes>
 );
 
