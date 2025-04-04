@@ -1,0 +1,87 @@
+/*
+ * Copyright Red Hat, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import React, { useEffect, useState } from 'react';
+import { Widget } from '@rjsf/utils';
+import { JSONSchema7 } from 'json-schema';
+import { JsonObject } from '@backstage/types';
+import { FormContextData } from '../types';
+import {
+  OrchestratorFormSchemaUpdater,
+  useWrapperFormPropsContext,
+} from '@red-hat-developer-hub/backstage-plugin-orchestrator-form-api';
+import { SchemaChunksResponse } from '@red-hat-developer-hub/backstage-plugin-orchestrator-form-api';
+
+export const SchemaUpdater: Widget<
+  JsonObject,
+  JSONSchema7,
+  FormContextData
+> = props => {
+  const formContext = useWrapperFormPropsContext();
+  const [loading, setLoading] = useState(true);
+
+  const updateSchema =
+    formContext.updateSchema as OrchestratorFormSchemaUpdater;
+  const uiProps = (props.options?.props ?? {}) as JsonObject;
+
+  // eslint-disable-next-line no-console
+  console.log('--- SchemaUpdater, props: ', props);
+  // eslint-disable-next-line no-console
+  console.log('--- SchemaUpdater, uiProps: ', uiProps);
+
+  const fetchUrl = uiProps['fetch:url']?.toString();
+
+  useEffect(() => {
+    const fetchSchemaChunks = async () => {
+      if (!fetchUrl) {
+        return;
+      }
+
+      try {
+        setLoading(true);
+
+        // TODO: use Backstage fetchApi instead
+        const response = await fetch(fetchUrl);
+        const data = (await response.json()) as unknown as SchemaChunksResponse;
+
+        // TODO: validate received response before updating
+
+        updateSchema(data);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Error when updating schema', props.id, fetchUrl, err);
+
+        // TODO: render error to the user
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSchemaChunks();
+  }, [fetchUrl, props.id, updateSchema /* TODO: when to retrigger? */]);
+
+  if (!fetchUrl) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'SchemaUpdater, incorrect ui:props, missing url:fetch: ',
+      props.id,
+      props.schema,
+    );
+    return <div>Misconfigured SchemaUpdater</div>;
+  }
+
+  // No need to render anything
+  return <></>;
+};
