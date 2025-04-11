@@ -36,11 +36,6 @@ export const SchemaUpdater: Widget<
     formContext.updateSchema as OrchestratorFormSchemaUpdater;
   const uiProps = (props.options?.props ?? {}) as JsonObject;
 
-  // eslint-disable-next-line no-console
-  console.log('--- SchemaUpdater, props: ', props);
-  // eslint-disable-next-line no-console
-  console.log('--- SchemaUpdater, uiProps: ', uiProps);
-
   const fetchUrl = uiProps['fetch:url']?.toString();
 
   useEffect(() => {

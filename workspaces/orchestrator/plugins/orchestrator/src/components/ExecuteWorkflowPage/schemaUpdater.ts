@@ -23,9 +23,11 @@ import { OrchestratorFormSchemaUpdater } from '@red-hat-developer-hub/backstage-
 /*
 TODO:
 - add a failing SchemaUpdater to the schema to show error
+- re-add validation and error handling
 - test preservation of form-data after schema change
 - test preservation of state of components unaffected by schema change
 - flatten form data on submit
+- update dynamic_schema workflow to copy all its input parameters
 */
 
 // Stops searching and replacing after first hit
@@ -69,6 +71,7 @@ export const getSchemaUpdater: (
 ) => OrchestratorFormSchemaUpdater = (schema, setSchema) => chunks => {
   // eslint-disable-next-line
   console.log('-- updateSchema, before: ', schema, ', chunks: ', chunks);
+
   if (!schema?.properties) {
     return;
   }
@@ -81,6 +84,7 @@ export const getSchemaUpdater: (
   if (!isEqual(schema, newSchema)) {
     // eslint-disable-next-line
     console.log('-- updateSchema, after: ', newSchema);
+
     setSchema(newSchema);
   }
 };

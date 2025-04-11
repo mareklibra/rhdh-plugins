@@ -35,7 +35,7 @@ import { JSONSchema7 } from 'json-schema';
 // import LanguageWidget from './widgets/LanguageSelectWidget';
 import { FormContextData } from './types';
 import { ConfigApi, FetchApi } from '@backstage/core-plugin-api';
-import { SchemaUpdater } from './widgets';
+import { SchemaUpdater, ActiveTextInput } from './widgets';
 
 // const reservedNames = ['admin', 'root', 'system'];
 
@@ -96,7 +96,7 @@ export class FormWidgetsApi implements OrchestratorFormApi {
           //   }
           // }, [formContext.updateSchema]);
 
-          const widgets = { SchemaUpdater };
+          const widgets = { SchemaUpdater, ActiveTextInput };
 
           const onChange = useCallback(
             (data: JsonObject | undefined) => {
