@@ -24,10 +24,6 @@ import { OrchestratorFormSchemaUpdater } from '@red-hat-developer-hub/backstage-
 TODO:
 - add a failing SchemaUpdater to the schema to show error
 - re-add validation and error handling
-- test preservation of form-data after schema change
-- test preservation of state of components unaffected by schema change
-- flatten form data on submit
-- update dynamic_schema workflow to copy all its input parameters
 */
 
 // Stops searching and replacing after first hit
