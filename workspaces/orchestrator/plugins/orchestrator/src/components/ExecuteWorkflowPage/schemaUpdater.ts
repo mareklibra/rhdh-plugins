@@ -16,7 +16,7 @@
 import { JsonObject } from '@backstage/types';
 
 import { JSONSchema7 } from 'json-schema';
-import isEqual from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 import { OrchestratorFormSchemaUpdater } from '@red-hat-developer-hub/backstage-plugin-orchestrator-form-api';
 
