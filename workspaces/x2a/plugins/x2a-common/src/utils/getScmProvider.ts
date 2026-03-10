@@ -18,8 +18,17 @@
  *
  * @public
  */
-export const getScmProvider = (repoUrl: string): 'github' | 'gitlab' => {
+export const getScmProvider = (
+  repoUrl: string,
+): 'github' | 'gitlab' | 'bitbucket' => {
   // Based on https://docs.github.com/en/enterprise-cloud@latest/admin/managing-your-enterprise-account/changing-the-url-for-your-enterprise
   // GitHub URLs should always contain github.com.
-  return repoUrl.includes('github.com') ? 'github' : 'gitlab';
+  if (repoUrl.includes('bitbucket.org')) {
+    return 'bitbucket';
+  }
+  if (repoUrl.includes('github.com')) {
+    return 'github';
+  }
+
+  return 'gitlab';
 };

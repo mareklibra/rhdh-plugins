@@ -46,6 +46,12 @@ See the [backend plugin README](./plugins/x2a-backend/README.md) for detailed co
 
    **GitLab OAuth:** When [creating a GitLab OAuth application](https://gitlab.com/-/user_settings/applications), request scopes per [official documentation](https://backstage.io/docs/auth/gitlab/provider/).
 
+   **BitBucket OAuth:** When [creating a BitBucket OAuth consumer](https://bitbucket.org/mareklibra/workspace/settings/api), request scopes per [official documentation](https://backstage.io/docs/auth/bitbucket/provider/).
+   In addition, request following scopes:
+   - `snippet:write`
+   - `issue:write`
+   - `pullrequest:write`
+
    ```sh
    export AUTH_GITHUB_CLIENT_ID=.... # Optional if "guest" user is not enough
    export AUTH_GITHUB_CLIENT_SECRET=... # Optional if "guest" user is not enough

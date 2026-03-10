@@ -16,6 +16,7 @@
 import { useCallback, useMemo } from 'react';
 
 import {
+  bitbucketAuthApiRef,
   githubAuthApiRef,
   gitlabAuthApiRef,
   OAuthApi,
@@ -52,11 +53,10 @@ const getProviderToken = async (
 
 /**
  * This is highly motivated by the similar well-tested functionality in the orchestrator plugin.
- *
- * We need just a subset of it (github and gitlab) for now.
  */
 export const useRepoAuthentication = () => {
   const app = useApp();
+  const bitbucketAuthApi = useApi(bitbucketAuthApiRef);
   const githubAuthApi = useApi(githubAuthApiRef);
   const gitlabAuthApi = useApi(gitlabAuthApiRef);
 
@@ -67,6 +67,8 @@ export const useRepoAuthentication = () => {
         token = await getProviderToken(githubAuthApi, tokenDescriptor);
       } else if (tokenDescriptor.provider === 'gitlab') {
         token = await getProviderToken(gitlabAuthApi, tokenDescriptor);
+      } else if (tokenDescriptor.provider === 'bitbucket') {
+        token = await getProviderToken(bitbucketAuthApi, tokenDescriptor);
       } else {
         throw new Error(`Unsupported provider: ${tokenDescriptor.provider}`);
       }
@@ -76,7 +78,7 @@ export const useRepoAuthentication = () => {
         provider: tokenDescriptor.provider,
       };
     },
-    [githubAuthApi, gitlabAuthApi],
+    [bitbucketAuthApi, githubAuthApi, gitlabAuthApi],
   );
 
   const authenticate = useCallback(
