@@ -36,7 +36,7 @@ metadata:
 spec:
   profile:
     displayName: Marek Libra
-    email: foo@bar.com
+    email: marek.libra@gmail.com
   memberOf: [x2a-admin-group]
 ---
 apiVersion: backstage.io/v1alpha1
