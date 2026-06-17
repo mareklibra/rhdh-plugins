@@ -42,9 +42,9 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: elai-shalev
+  name: eloycoto
 spec:
   profile:
-    displayName: Elai Shalev
-    email: foo@bar.com
-  memberOf: []
+    displayName: Eloy Coto
+    email: eloy.coto@acalustra.com
+  memberOf: [x2a-admin-group]
